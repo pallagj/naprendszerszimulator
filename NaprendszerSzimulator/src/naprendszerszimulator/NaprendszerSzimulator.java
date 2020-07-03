@@ -6,6 +6,9 @@
 package naprendszerszimulator;
 
 import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JColorChooser;
 
 /**
  *
@@ -29,19 +32,61 @@ public class NaprendszerSzimulator extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        dialog = new javax.swing.JDialog();
+        color_chooser = new javax.swing.JColorChooser();
+        ok_btn = new javax.swing.JToggleButton();
         jButton1 = new javax.swing.JButton();
         tomeg_sp = new javax.swing.JSpinner();
         jButton2 = new javax.swing.JButton();
         panel = new naprendszerszimulator.Panel();
         jLabel1 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+
+        ok_btn.setText("OK");
+        ok_btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ok_btnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout dialogLayout = new javax.swing.GroupLayout(dialog.getContentPane());
+        dialog.getContentPane().setLayout(dialogLayout);
+        dialogLayout.setHorizontalGroup(
+            dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(ok_btn)
+                    .addComponent(color_chooser, javax.swing.GroupLayout.PREFERRED_SIZE, 657, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        dialogLayout.setVerticalGroup(
+            dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogLayout.createSequentialGroup()
+                .addComponent(color_chooser, javax.swing.GroupLayout.PREFERRED_SIZE, 343, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ok_btn)
+                .addGap(9, 9, 9))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton1.setText("Start");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         tomeg_sp.setModel(new javax.swing.SpinnerNumberModel(100, 1, null, 1));
 
         jButton2.setText("Szín választása");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         panel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -62,7 +107,7 @@ public class NaprendszerSzimulator extends javax.swing.JFrame {
         panel.setLayout(panelLayout);
         panelLayout.setHorizontalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 841, Short.MAX_VALUE)
+            .addGap(0, 875, Short.MAX_VALUE)
         );
         panelLayout.setVerticalGroup(
             panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -70,6 +115,15 @@ public class NaprendszerSzimulator extends javax.swing.JFrame {
         );
 
         jLabel1.setText("Tömeg:");
+
+        jButton3.setText("Naprendszer megsemmisítése");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Stop");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -80,12 +134,19 @@ public class NaprendszerSzimulator extends javax.swing.JFrame {
                 .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(71, 71, 71))
+                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(22, 22, 22)
                         .addComponent(tomeg_sp, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jButton3)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -98,8 +159,12 @@ public class NaprendszerSzimulator extends javax.swing.JFrame {
                 .addGap(8, 8, 8)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addContainerGap(412, Short.MAX_VALUE))
+                .addComponent(jButton3)
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton4))
+                .addContainerGap(550, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -108,13 +173,15 @@ public class NaprendszerSzimulator extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    Color bolygo_color = Color.PINK;
+
     private void panelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMousePressed
         int x = evt.getX();
         int y = evt.getY();
 
         panel.bolygoLetrehoz(
                 (Integer) tomeg_sp.getValue(),
-                Color.magenta,
+                bolygo_color,
                 x, y);
     }//GEN-LAST:event_panelMousePressed
 
@@ -127,6 +194,37 @@ public class NaprendszerSzimulator extends javax.swing.JFrame {
         panel.bolygoModosit(evt.getX(), evt.getY());
         panel.repaint();
     }//GEN-LAST:event_panelMouseDragged
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new Thread(
+                () -> {
+                    while (true) {
+                        panel.nextFrame();
+                        panel.repaint();
+                        try {
+                            Thread.sleep(30);
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(NaprendszerSzimulator.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+        ).start();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        dialog.setVisible(true);
+        dialog.pack();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void ok_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ok_btnActionPerformed
+        dialog.setVisible(false);
+        bolygo_color = color_chooser.getColor();
+    }//GEN-LAST:event_ok_btnActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        panel.megsemmisit();
+        panel.repaint();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -164,9 +262,14 @@ public class NaprendszerSzimulator extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JColorChooser color_chooser;
+    private javax.swing.JDialog dialog;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JToggleButton ok_btn;
     private naprendszerszimulator.Panel panel;
     private javax.swing.JSpinner tomeg_sp;
     // End of variables declaration//GEN-END:variables
