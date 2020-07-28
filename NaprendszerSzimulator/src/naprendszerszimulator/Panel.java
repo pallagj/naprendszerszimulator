@@ -12,6 +12,9 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import javax.swing.JPanel;
 
 /**
@@ -107,7 +110,7 @@ class Bolygo {
         g.drawLine((int) pozicio.x, (int) pozicio.y, (int) pozicio.x + (int) sebesseghely.x, (int) pozicio.y + (int) sebesseghely.y);
     }
 
-    public void nextStep(ArrayList<Bolygo> bolygok) {
+    public void nextStep(List<Bolygo> bolygok) {
         //Erõk
         double t = 30 / 100.0;
         double Fx = 0;
@@ -209,13 +212,13 @@ class Kamera {
 }
 
 public class Panel extends JPanel {
-
-    ArrayList<Bolygo> lista = new ArrayList();
+    CopyOnWriteArrayList<Bolygo> lista = new CopyOnWriteArrayList<>();
     Bolygo akt_bolygo = null;
     Kamera kamera;
 
     public Panel() {
         super();
+        
         kamera = new Kamera(100, 100);
     }
 
