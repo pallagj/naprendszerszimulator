@@ -93,9 +93,7 @@ class Bolygo {
     }
 
     public void rajzol(Graphics g, Kamera kamera) {
-        //System.out.println("pozicio0.X:" + pozicio.x + "pozicio0.Y" + pozicio.y);
         Vektor pozicio = new Vektor(kamera.toKepernyo(this.pozicio));
-        //System.out.println("pozicio1.X:" + pozicio.x + "pozicio1.Y" + pozicio.y);
 
         g.setColor(color);
 
@@ -111,7 +109,7 @@ class Bolygo {
 
     public void nextStep(ArrayList<Bolygo> bolygok) {
         //Erõk
-        double t = 30/100.0;
+        double t = 30 / 100.0;
         double Fx = 0;
         double Fy = 0;
 
@@ -190,8 +188,8 @@ class Kamera {
     }
 
     void zoom(double a, int x, int y) {
-        szelesseg *= a;
         Vektor pont = this.toUniverzum(x, y);
+        szelesseg *= a;
         sarok.x = (sarok.x - pont.x) * a + pont.x;
         sarok.y = (sarok.y - pont.y) * a + pont.y;
     }
@@ -242,17 +240,13 @@ public class Panel extends JPanel {
     }
 
     void bolygoLetrehoz(int m, Color color, int x, int y) {
-        //System.out.println("X:" + x + "Y" + y);
         Vektor poz = kamera.toUniverzum(x, y);
-        //System.out.println("poz.X:" + poz.x + "poz.Y" + poz.y);
         akt_bolygo = new Bolygo(m, color, poz.x, poz.y);
     }
 
     void bolygoModosit(int x_akt, int y_akt) {
         if (akt_bolygo != null) {
-            System.out.println("x_akt:" + x_akt + "y_akt" + y_akt);
             Vektor poz = kamera.toUniverzum(x_akt, y_akt);
-            System.out.println("x_akt:" + poz.y + "y_akt" + poz.x);
             akt_bolygo.modositSebesseg(poz.x, poz.y);
         }
     }
