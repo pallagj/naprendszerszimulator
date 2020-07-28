@@ -1,6 +1,6 @@
 # Naprendszer szimulátor
 ## Bevezetés
-A program lehetőséget biztosít bolygók lerakására sebesség beállítása mellett. A lerakott bolygókra indtható szimuláció, ami a sebességeket, és a bolygók közti vonzást veszi figyelembe.
+A program lehetőséget biztosít bolygók lerakására **sebesség beállítása mellett**. A lerakott bolygókra indtható szimuláció, ami a sebességeket, és a **bolygók közti vonzást veszi figyelembe**.
 
 ## Megvalósítandó feladatok
 - [x] Bolygók lerakása
