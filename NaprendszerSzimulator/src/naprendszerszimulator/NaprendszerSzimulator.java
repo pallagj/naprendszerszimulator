@@ -5,10 +5,16 @@
  */
 package naprendszerszimulator;
 
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.awt.Color;
+import java.awt.event.MouseEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JColorChooser;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -64,7 +70,7 @@ public class NaprendszerSzimulator extends javax.swing.JFrame {
         dialogLayout.setVerticalGroup(
             dialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(dialogLayout.createSequentialGroup()
-                .addComponent(color_chooser, javax.swing.GroupLayout.PREFERRED_SIZE, 343, Short.MAX_VALUE)
+                .addComponent(color_chooser, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ok_btn)
                 .addGap(9, 9, 9))
@@ -92,6 +98,11 @@ public class NaprendszerSzimulator extends javax.swing.JFrame {
         panel.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 panelMouseDragged(evt);
+            }
+        });
+        panel.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
+            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
+                panelMouseWheelMoved(evt);
             }
         });
         panel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -133,20 +144,17 @@ public class NaprendszerSzimulator extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(71, 71, 71))
-                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(22, 22, 22)
+                        .addComponent(jLabel1)
+                        .addGap(93, 93, 93)
                         .addComponent(tomeg_sp, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton3)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4)))
+                        .addComponent(jButton4))
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -156,9 +164,9 @@ public class NaprendszerSzimulator extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tomeg_sp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(8, 8, 8)
-                .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addGap(8, 8, 8)
                 .addComponent(jButton3)
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -174,24 +182,49 @@ public class NaprendszerSzimulator extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     Color bolygo_color = Color.PINK;
-
+    boolean left = true;
     private void panelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMousePressed
         int x = evt.getX();
         int y = evt.getY();
 
-        panel.bolygoLetrehoz(
-                (Integer) tomeg_sp.getValue(),
-                bolygo_color,
-                x, y);
+        left = evt.getButton() == MouseEvent.BUTTON1;
+        if (evt.getButton() == MouseEvent.BUTTON1) {
+            panel.bolygoLetrehoz(
+                    (Integer) tomeg_sp.getValue(),
+                    bolygo_color,
+                    x, y);
+        } else {
+            this.x = evt.getX();
+            this.y = evt.getY();
+        }
     }//GEN-LAST:event_panelMousePressed
 
     private void panelMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMouseReleased
-        panel.bolygoHozzaad();
-        panel.repaint();
+        if (evt.getButton() == MouseEvent.BUTTON1) {
+            panel.bolygoHozzaad();
+            panel.repaint();
+        }
     }//GEN-LAST:event_panelMouseReleased
 
+    int x, y;
+
+
     private void panelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMouseDragged
-        panel.bolygoModosit(evt.getX(), evt.getY());
+        
+        if (left) {
+            panel.bolygoModosit(evt.getX(), evt.getY());
+            panel.repaint();
+        } else {
+
+            int dx = evt.getX() - x;
+            int dy = evt.getY() - y;
+
+            panel.getKamera().eltol(dx, dy);
+
+            x = evt.getX();
+            y = evt.getY();
+
+        }
         panel.repaint();
     }//GEN-LAST:event_panelMouseDragged
 
@@ -226,6 +259,16 @@ public class NaprendszerSzimulator extends javax.swing.JFrame {
         panel.repaint();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void panelMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_panelMouseWheelMoved
+        if (evt.getWheelRotation() < 0) {
+            panel.getKamera().zoom(0.9, evt.getX(), evt.getY());
+        } else {
+            panel.getKamera().zoom(1.1, evt.getX(), evt.getY());
+        }
+        panel.repaint();
+
+    }//GEN-LAST:event_panelMouseWheelMoved
+
     /**
      * @param args the command line arguments
      */
@@ -253,8 +296,15 @@ public class NaprendszerSzimulator extends javax.swing.JFrame {
         }
         //</editor-fold>
 
+        try {
+            UIManager.setLookAndFeel(new FlatDarkLaf());
+        } catch (UnsupportedLookAndFeelException ex) {
+            System.err.println("Failed to initialize LaF");
+        }
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new NaprendszerSzimulator().setVisible(true);
             }
