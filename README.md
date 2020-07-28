@@ -7,9 +7,17 @@ A program lehetőséget biztosít bolygók lerakására sebesség beállítása 
 - [x] Sebesség beállítása a bolygókhoz
 - [x] Szimuláció
 - [x] Zoom, és mozgatás
-- [ ] Átfogó GUI frissítés: gombok ikonnal + menü, bolygó körvonal, textúra, sebesség legyen nyíl, háttér
-- [ ] Szimuláció, tömeg ~ méret ~ sűrűség finomhangolása állítható idősebességgel, leállítás, egyszer indítás
+- [ ] Átfogó GUI frissítés: 
+   - gombok ikonnal + menü, 
+   - bolygó körvonala, textúrája, 
+   - sebességvektor legyen nyíl, 
+   - háttér beállítása
+- [ ] Szimuláció javítása:
+   - tömeg ~ méret ~ sűrűség finomhangolása,
+   - állítható idősebesség,
+   - leállítás, egyszer indítás
 - [ ] Fix bolygó beállításának lehetősége
 - [ ] Mérőrúd mutatása
-- [ ] Pálya mutatása, legközelebbi fix bolygótól vett távolság mutatása
+- [ ] Pálya mutatása
+- [ ] Legközelebbi fix bolygótól vett távolság mutatása
 - [ ] Mentés, és beolvasás
