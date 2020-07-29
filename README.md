@@ -8,10 +8,10 @@ A program lehetőséget biztosít bolygók lerakására **sebesség beállítás
 - [x] Szimuláció
 - [x] Zoom, és mozgatás
 - [ ] Átfogó GUI frissítés: 
-   - [ ] gombok ikonnal + menü, 
+   - [x] gombok ikonnal + menü, 
    - [ ] bolygó körvonala, textúrája, 
    - [ ] sebességvektor legyen nyíl, 
-   - [ ] háttér beállítása
+   - [x] háttér beállítása
 - [ ] Szimuláció javítása:
    - [ ] tömeg ~ méret ~ sűrűség finomhangolása,
    - [ ] állítható idősebesség,
