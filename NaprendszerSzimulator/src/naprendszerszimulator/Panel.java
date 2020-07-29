@@ -235,7 +235,7 @@ public class Panel extends JPanel {
         kamera = new Kamera(100, 100);
 
         try {
-            background = ImageIO.read(new File("src/naprendszerszimulator/backgrounds/background1.jpg"));
+            background = ImageIO.read(getClass().getResource("/naprendszerszimulator/backgrounds/background1.jpg"));
         } catch (IOException ex) {
             Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
         }
