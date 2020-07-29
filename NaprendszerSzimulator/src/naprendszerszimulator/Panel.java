@@ -10,12 +10,16 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.RenderingHints;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /**
@@ -69,7 +73,7 @@ class Bolygo {
     Vektor next_pozicio = new Vektor();
 
     int m = 100;
-    Color color = Color.PINK;
+    Color color = Color.WHITE;
 
     public Bolygo(int m, Color color, double x, double y) {
         this.m = m;
@@ -101,8 +105,7 @@ class Bolygo {
 
         g.setColor(color);
 
-        Vektor helydd = kamera.toKepernyoHely(m, m);
-        int d = (int) helydd.x; //TODO konstans szorzó
+        int d = kamera.toKepernyoLength(m);
 
         g.fillOval((int) (pozicio.x - d / 2), (int) (pozicio.y - d / 2), d, d);
 
@@ -185,9 +188,17 @@ class Kamera {
         return new Vektor(xU, yU);
     }
 
+    double toUniverzumLength(int l) {
+        return l * szelesseg / w;
+    }
+
+    int toKepernyoLength(double lU) {
+        return (int) (lU * w / szelesseg);
+    }
+
     Vektor toKepernyoHely(double xU, double yU) {
-        double x = (xU) * w / szelesseg;
-        double y = (yU) * w / szelesseg;
+        double x = xU * w / szelesseg;
+        double y = yU * w / szelesseg;
         return new Vektor(x, y);
     }
 
@@ -213,26 +224,40 @@ class Kamera {
 }
 
 public class Panel extends JPanel {
+
     CopyOnWriteArrayList<Bolygo> lista = new CopyOnWriteArrayList<>();
     Bolygo akt_bolygo = null;
     Kamera kamera;
 
     public Panel() {
         super();
-        
+
         kamera = new Kamera(100, 100);
+
+        try {
+            background = ImageIO.read(new File("src/naprendszerszimulator/backgrounds/background1.jpg"));
+        } catch (IOException ex) {
+            Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     @Override
-    public void paintComponent(Graphics g) {
-        super.paintComponent(g);
+    public void paintComponent(Graphics graphics) {
+        super.paintComponent(graphics);
+
+        BufferedImage img_panel = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = (Graphics2D) img_panel.getGraphics();
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
         kamera.resize(getWidth(), getHeight());
 
-        ((Graphics2D) g).setStroke(new BasicStroke(3));
+        g.setStroke(new BasicStroke(3));
 
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
-        g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+
+        drawBackground(g);
 
         for (int i = 0; i < lista.size(); i++) {
             lista.get(i).rajzol(g, kamera);
@@ -241,6 +266,28 @@ public class Panel extends JPanel {
         //Aktuális szakasz rajzolása
         if (akt_bolygo != null) {
             akt_bolygo.rajzol(g, kamera);
+        }
+
+        graphics.drawImage(img_panel, 0, 0, this);
+    }
+
+    private void drawBackground(Graphics2D g) {
+        if (background != null) {
+            double screen_rate = getHeight() / (double) getWidth();
+            double background_rate = background.getHeight() / (double) background.getWidth();
+
+            int w, h;
+
+            if (screen_rate < background_rate) {
+                w = getWidth();
+                h = getWidth() * background.getHeight() / background.getWidth();
+                g.drawImage(background, 0, (getHeight() - h) / 2, w, h, this);
+            } else {
+                w = getHeight() * background.getWidth() / background.getHeight();
+                h = getHeight();
+                g.drawImage(background, (getWidth() - w) / 2, 0, w, h, this);
+            }
+
         }
     }
 
@@ -274,10 +321,10 @@ public class Panel extends JPanel {
         return kamera;
     }
 
-    BufferedImage img = null;
-    
+    BufferedImage background = null;
+
     void setBackground(BufferedImage image) {
-        img = image;
+        background = image;
     }
 
 }
