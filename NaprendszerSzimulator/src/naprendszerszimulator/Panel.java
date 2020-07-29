@@ -11,6 +11,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -231,6 +232,7 @@ public class Panel extends JPanel {
 
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
+        g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
 
         for (int i = 0; i < lista.size(); i++) {
             lista.get(i).rajzol(g, kamera);
@@ -270,6 +272,12 @@ public class Panel extends JPanel {
 
     Kamera getKamera() {
         return kamera;
+    }
+
+    BufferedImage img = null;
+    
+    void setBackground(BufferedImage image) {
+        img = image;
     }
 
 }
