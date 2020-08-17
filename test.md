@@ -610,7 +610,9 @@ _TEST_QArrowheadClientDeviceAdapter_ is a Qt Test application implementing unit 
 
 
 :point_up: **Mandatory commands/parameters are bold**
+
 :point_up: The parameters must be specified as follows: **parameter_name[value]**, but the **name** parameter could be specified as follow too: **value**, example: *register system MySystem1 port[8080]*.
+
 :point_up:  The structure of commands: devices > systems > services
 
 ### Register
